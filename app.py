@@ -5,7 +5,6 @@ from ai_engine import get_ai_suggestions, next_best_problem
 app = Flask(__name__)
 load_dotenv()
 
-
 # Home page
 @app.route('/')
 def index():
@@ -152,7 +151,7 @@ def ai():
         else:
             response = "Practice daily 2-3 problems. Focus on patterns not questions."
 
-    return render_template("ai.html", response=response)
+    return render_template("ai.html", response=response, query=request.form.get('query', ''))
 # Run app
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,port=5001)
