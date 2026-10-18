@@ -1,6 +1,6 @@
 # DSA Tracker Web App
 
-A full-stack web application to track solved DSA problems.
+Full-stack campus placement platform for students and recruiters. Students browse jobs, apply and track status; recruiters post jobs and move applicants through Applied, Shortlisted and Selected/Rejected. Built with Angular, Flask, MySQL and JWT-secured REST APIs.
 
 ## Features
 - Add problems
