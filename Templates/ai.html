@@ -1,30 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>AI Coach</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Coach | DSA Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
 </head>
-
-<body class="bg-dark text-white">
-
-<div class="container mt-5">
-
-    <h2>🤖 DSA AI Coach</h2>
-
-    <form method="POST">
-        <input type="text" name="query" class="form-control" placeholder="Ask about DP, Graph, Array..." />
-        <button class="btn btn-primary mt-3">Ask AI</button>
-    </form>
-
-    {% if response %}
-    <div class="alert alert-info mt-4 text-dark">
-        {{ response }}
+<body>
+<nav class="topbar" aria-label="Main navigation">
+    <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">D</span> DSA Tracker</a>
+    <div class="nav-links">
+        <a class="nav-link" href="/">Dashboard</a>
+        <a class="nav-link active" href="/ai" aria-current="page">AI Coach</a>
+        <a class="nav-link primary" href="/add">+ Add question</a>
     </div>
-    {% endif %}
+</nav>
 
-    <a href="/" class="btn btn-light mt-3">Back</a>
-
-</div>
-
+<main class="page-shell">
+    <header class="page-heading">
+        <div>
+            <p class="eyebrow">A little help with your next step</p>
+            <h1>AI Coach</h1>
+            <p class="heading-note">Get a quick roadmap for a topic you are practicing.</p>
+        </div>
+    </header>
+    <section class="panel coach-panel">
+        <h2>What are you working on?</h2>
+        <p>Ask for a study roadmap or practice patterns for a DSA topic.</p>
+        <form class="coach-form" method="POST">
+            <input id="query" type="text" name="query" placeholder="Try dynamic programming, graphs, or arrays..." value="{{ query }}" required>
+            <button class="button button-primary" type="submit">Get suggestions</button>
+        </form>
+        <div class="prompt-list" aria-label="Suggested topics">
+            <button class="prompt-chip" type="button" data-prompt="Dynamic programming">Dynamic programming</button>
+            <button class="prompt-chip" type="button" data-prompt="Graph algorithms">Graph algorithms</button>
+            <button class="prompt-chip" type="button" data-prompt="Array patterns">Array patterns</button>
+            <button class="prompt-chip" type="button" data-prompt="Weak topics">Weak topics</button>
+        </div>
+        {% if response %}<div class="response" role="status">{{ response }}</div>{% endif %}
+    </section>
+</main>
+<script>
+    document.querySelectorAll('[data-prompt]').forEach((button) => {
+        button.addEventListener('click', () => {
+            document.querySelector('#query').value = button.dataset.prompt;
+            document.querySelector('#query').focus();
+        });
+    });
+</script>
 </body>
 </html>
